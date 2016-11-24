@@ -381,7 +381,7 @@ dissect_pwospf(tvbuff_t *tvb, packet_info *pinfo, proto_tree *tree)
                 /* add neighbor router ip */
                 ip_to_string( str_ip, tvb_get_ntohl( tvb, offset+8 ) );
                 proto_tree_add_string( advert_tree, hf_pw_rtr_id_str, tvb, offset+8, 4, str_ip );
-                offset += 12;
+                offset += 16;
             }
         }
     }
