@@ -5,12 +5,14 @@
  * Purpose:  define a Wireshark 0.99.x-1.x dissector for the PWOSPF protocol
  */
 
-#ifdef HAVE_CONFIG_H
+/*#ifdef HAVE_CONFIG_H
 # include "config.h"
 #endif
+*/
 
 #include <stdio.h>
 #include <glib.h>
+#include <stdarg.h>
 #include <epan/packet.h>
 #include <epan/prefs.h>
 #include <string.h>
@@ -69,6 +71,7 @@ static gint hf_pw_subnet           = -1;
 static gint hf_pw_rtr_id           = -1;
 static gint hf_pw_rtr_id_str       = -1;
 static gint hf_pw_subnet_and_mask  = -1;
+static gint hf_pw_tx_rate          = -1;
 
 /* These are the ids of the subtrees that we may be creating */
 static gint ett_pw                 = -1;
@@ -198,7 +201,10 @@ void proto_register_pwospf()
           { "Router ID", "pw.rtr",            FT_STRING, BASE_NONE, NO_STRINGS,       NO_MASK, "Neighbor Router ID",  HFILL }},
 
         { &hf_pw_subnet_and_mask,
-          { "Subnet/Mask", "mw.sm",           FT_STRING, BASE_NONE, NO_STRINGS,       NO_MASK, "Advert Subnet/Mask",  HFILL }}
+          { "Subnet/Mask", "mw.sm",           FT_STRING, BASE_NONE, NO_STRINGS,       NO_MASK, "Advert Subnet/Mask",  HFILL }},
+
+        { &hf_pw_tx_rate,
+          { "tx rate", "pw.tx_rate",          FT_STRING, BASE_NONE, NO_STRINGS,       NO_MASK, "TX rate",  HFILL }}
     };
 
     static gint *ett[] = {
@@ -381,6 +387,12 @@ dissect_pwospf(tvbuff_t *tvb, packet_info *pinfo, proto_tree *tree)
                 /* add neighbor router ip */
                 ip_to_string( str_ip, tvb_get_ntohl( tvb, offset+8 ) );
                 proto_tree_add_string( advert_tree, hf_pw_rtr_id_str, tvb, offset+8, 4, str_ip );
+
+                /* add tx rate */
+                char str_tx_rate[STRLEN_IP];  
+                tx_to_string( str_tx_rate, tvb_get_ntohl( tvb, offset+12 ) );
+                proto_tree_add_string( advert_tree, hf_pw_tx_rate, tvb, offset+12, 4, str_tx_rate ); 
+
                 offset += 16;
             }
         }
