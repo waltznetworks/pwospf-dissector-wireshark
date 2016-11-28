@@ -68,3 +68,18 @@ void subnet_to_string( char* buf, addr_ip_t subnet, addr_ip_t mask ) {
         snprintf( buf, STRLEN_SUBNET, "%u.%u.%u.%u/%u",
                   bytes[3], bytes[2], bytes[1], bytes[0], num_ones );
 }
+
+#define STRLEN_TX_RATE 20
+/**
+ * convert tx_rate into a string representation
+ */
+void tx_to_string (char* buf, addr_ip_t tx_rate ) {
+    byte* bytes;
+    bytes = (byte*)&tx_rate;
+
+    snprintf( buf, STRLEN_TX_RATE, "%u%u%u%u",
+              bytes[3],
+              bytes[2],
+              bytes[1],
+              bytes[0] );
+}

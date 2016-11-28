@@ -8,8 +8,8 @@
 # Copyright 1998 Gerald Combs
 
 srcdir = .
-top_srcdir = wireshark-1.0.0-includes
-includedir = wireshark-1.0.0-includes
+top_srcdir = /home/andrey/openflow/utilities/wireshark_dissectors/wireshark-1.0.0-includes
+includedir = /home/andrey/openflow/utilities/wireshark_dissectors/wireshark-1.0.0-includes
 INCLUDES = -I$(top_srcdir) -I$(includedir)
 
 include Makefile.common
