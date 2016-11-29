@@ -8,3 +8,5 @@ See LICENSE file for information about NetFPGA's license agreement.
 For more information about pwospf packets, see http://yuba.stanford.edu/cs344/admin/pwospf/.
 
 The following packages are required: libglib2.0-dev and libwireshark-dev
+
+tshark: `tshark -T pdml -r "foo.pcap" frame.number==1`
