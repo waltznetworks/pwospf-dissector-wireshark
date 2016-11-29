@@ -9,4 +9,4 @@ For more information about pwospf packets, see http://yuba.stanford.edu/cs344/ad
 
 The following packages are required: libglib2.0-dev and libwireshark-dev
 
-tshark: `tshark -T pdml -r "foo.pcap" frame.number==1`
+tshark: `tshark -V -r "foo.pcap" frame.number==1`
